@@ -50,7 +50,7 @@ def answer(text, sample=True, top_p=0.9):
   return postprocess(out_text[0])
 ```
 
-# 问答、写作与功能型组手
+# 问答、写作与功能型助手
 ```python
 input_text0 = "帮我写一个请假条，我因为新冠不舒服，需要请假3天，请领导批准"
 input_text1 = "你能干什么"
