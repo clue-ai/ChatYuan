@@ -50,8 +50,25 @@ def answer(text, sample=True, top_p=0.9):
   return postprocess(out_text[0])
 ```
 
-# 单轮对话
-    
+# 问答、写作与功能型组手
+```python
+input_text0 = "帮我写一个请假条，我因为新冠不舒服，需要请假3天，请领导批准"
+input_text1 = "你能干什么"
+input_text2 = "用英文写一封道歉的邮件，表达因为物流延误，不能如期到达，我们可以赔偿贵公司所有损失"
+input_text3 = "写一个文章，题目是未来城市"
+input_text4 = "写一个诗歌，关于冬天"
+input_text5 = "从南京到上海的路线"
+input_text6 = "学前教育专业岗位实习中，在学生方面会存在问题，请提出改进措施。800字"
+input_text7 = "根据标题生成文章：标题：屈臣氏里的化妆品到底怎么样？正文：化妆品，要讲究科学运用，合理搭配。屈臣氏起码是正品连锁店。请继续后面的文字。"
+input_text8 = "帮我对比几款GPU，列出详细参数对比，并且给出最终结论"
+input_list = [input_text0, input_text1, input_text2, input_text3, input_text4, input_text5, input_text6, input_text7, input_text8]
+for i, input_text in enumerate(input_list):
+  input_text = "用户：" + input_text + "\n小元："
+  print(f"示例{i}".center(50, "="))
+  output_text = answer(input_text, top_p=0.9)
+  print(f"{input_text}{output_text}")   
+```
+   
     =======================示例0========================  
     用户：帮我写一个请假条，我因为新冠不舒服，需要请假3天，请领导批准  
     小元：尊敬的领导：  
@@ -135,6 +152,19 @@ def answer(text, sample=True, top_p=0.9):
     3. 5 ms     
 
 # 多轮对话
+
+```python
+input_text = ["你好","新冠什么症状？","可以吃什么药？"]
+answer_text = ["您好!我是元语AI。我可以回答您的问题、写文章、写作业、翻译，对于一些法律等领域的问题我也可以给你提供信息", "新冠是指新型冠状病毒，其症状包括发热、干咳、乏力、嗅味觉减退、呼吸困难等。", "根据您提供的病史，目前没有明确的抗新冠病毒的药物，建议您在家进行自我隔离，避免与他人接触，多喝开水，清淡易消化饮食，避免熬夜和过度劳累，适当进行户外活动。"]
+context = "\n".join([f"用户：{input_text[i]}\n小元：{answer_text[i]}" for i in range(len(input_text))])
+print(context)
+
+input_text = "用什么后遗症么？"
+print(f"示例".center(50, "="))
+input_text = context + "\n用户：" + input_text + "\n小元："
+output_text = answer(input_text, top_p=0.9)
+print(f"{input_text}{output_text}")
+```
     ========================示例========================  
     用户：你好  
     小元：您好!我是元语AI。我可以回答您的问题、写文章、写作业、翻译，对于一些法律等领域的问题我也可以给你提供信息  
