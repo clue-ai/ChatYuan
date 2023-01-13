@@ -54,7 +54,12 @@ def answer(text, sample=True, top_p=0.9):
   out_text = tokenizer.batch_decode(out["sequences"], skip_special_tokens=True)
   return postprocess(out_text[0])
 ```
+### 使用自定义数据集进行训练-PyTorch实现
 
+* 使用pCLUE数据集进行训练、预测和效果验证, pytorch实现--在线colab
+  
+  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lEyFhEfoc-5Z5xqpEKkZt_iMaojH1MP_?usp=sharing)
+  
 # 问答、写作与功能型助手
 ```python
 input_text0 = "帮我写一个请假条，我因为新冠不舒服，需要请假3天，请领导批准"
