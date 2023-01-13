@@ -15,7 +15,8 @@ ChatYuan: 元语功能型对话大模型
   &nbsp;<a href='https://colab.research.google.com/drive/1ZcLIJuemiojigrfjbsDMBWrX7JqXZX6I?usp=sharing#scrollTo=QokO0pdGmAYH'>Colab在线试用</a> 
  
 扫码体验或微信搜索小程序“元语智能”：
-<img src="https://github.com/clue-ai/ChatYuan/blob/main/imgs/chatyuan_wechat.jpg"  width="25%" height="25%" />   
+
+<img src="https://github.com/clue-ai/ChatYuan/blob/main/imgs/chatyuan_wechat.jpg"  width="27%" height="27%" />   
 
 加载模型：
  
