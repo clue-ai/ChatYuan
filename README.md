@@ -182,6 +182,7 @@ print(f"{input_text}{output_text}")
 
 ### 技术交流和问题反馈
 <p float="left">
+   <img src="https://github.com/clue-ai/ChatYuan/blob/main/imgs/chatyuan_wechat.jpg"  width="29%" height="29%" />   
    <img src="https://github.com/clue-ai/ChatYuan/blob/main/imgs/ChatYuan.jpeg"  width="29%" height="29%" />   
    <img src="https://github.com/clue-ai/ChatYuan/blob/main/imgs/brightmart.jpeg"  width="29%" height="29%" /> 
 </p> 
