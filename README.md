@@ -9,6 +9,7 @@ ChatYuan: 元语功能型对话大模型
 <a href='https://www.cluebenchmarks.com/clueai.html'>PromptCLUE-large</a>在1000亿token中文语料上预训练，累计学习1.5万亿中文token，并且在数百种任务上进行Prompt任务式训练。针对理解类任务，如分类、情感分析、抽取等，可以自定义标签体系；针对多种生成任务，可以进行采样自由生成。 
 
 <a href='https://www.yuanyu.ai'>在线Demo</a> &nbsp; | 
+  <a href='https://modelscope.cn/models/ClueAI/ChatYuan-large/summary'>ModelScope</a> &nbsp; | 
   <a href='https://huggingface.co/ClueAI/ChatYuan-large-v1'>Huggingface</a> &nbsp; | 
   <a href='https://www.clueai.cn'>使用API(large版)</a> &nbsp; | 
  &nbsp; <a href='https://github.com/clue-ai/ChatYuan'>Github项目地址</a>&nbsp; |
@@ -54,12 +55,7 @@ def answer(text, sample=True, top_p=0.9):
   out_text = tokenizer.batch_decode(out["sequences"], skip_special_tokens=True)
   return postprocess(out_text[0])
 ```
-### 使用自定义数据集进行训练-PyTorch实现
 
-* 使用pCLUE数据集进行训练、预测和效果验证, pytorch实现--在线colab
-  
-  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lEyFhEfoc-5Z5xqpEKkZt_iMaojH1MP_?usp=sharing)
-  
 # 问答、写作与功能型助手
 ```python
 input_text0 = "帮我写一个请假条，我因为新冠不舒服，需要请假3天，请领导批准"
