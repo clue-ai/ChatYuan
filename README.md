@@ -59,7 +59,7 @@ def answer(text, sample=True, top_p=0.9):
 
 * 使用pCLUE数据集进行训练、预测和效果验证, pytorch实现--在线colab
   
-  [![Open In Colab](https://colab.research.google.com/drive/1lEyFhEfoc-5Z5xqpEKkZt_iMaojH1MP_?usp=sharing)
+  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lEyFhEfoc-5Z5xqpEKkZt_iMaojH1MP_?usp=sharing)
   
 # 问答、写作与功能型助手
 ```python
