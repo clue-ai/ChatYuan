@@ -43,7 +43,7 @@ def preprocess(text):
 def postprocess(text):
   return text.replace("\\n", "\n").replace("\\t", "\t")
 
-def answer(text, sample=True, top_p=0.9):
+def answer(text, sample=True, top_p=1, temperature=0.7):
   '''sample：是否抽样。生成任务，可以设置为True;
   top_p：0-1之间，生成的内容越多样'''
   text = preprocess(text)
@@ -51,9 +51,11 @@ def answer(text, sample=True, top_p=0.9):
   if not sample:
     out = model.generate(**encoding, return_dict_in_generate=True, output_scores=False, max_new_tokens=512, num_beams=1, length_penalty=0.6)
   else:
-    out = model.generate(**encoding, return_dict_in_generate=True, output_scores=False, max_new_tokens=512, do_sample=True, top_p=top_p, no_repeat_ngram_size=3)
+    out = model.generate(**encoding, return_dict_in_generate=True, output_scores=False, max_new_tokens=512, do_sample=True, top_p=top_p, temperature=temperature, no_repeat_ngram_size=3)
   out_text = tokenizer.batch_decode(out["sequences"], skip_special_tokens=True)
   return postprocess(out_text[0])
+print("end...")
+
 ```
 ### 使用自定义数据集进行训练-PyTorch实现
 
@@ -76,7 +78,7 @@ input_list = [input_text0, input_text1, input_text2, input_text3, input_text4, i
 for i, input_text in enumerate(input_list):
   input_text = "用户：" + input_text + "\n小元："
   print(f"示例{i}".center(50, "="))
-  output_text = answer(input_text, top_p=0.9)
+  output_text = answer(input_text)
   print(f"{input_text}{output_text}")   
 ```
 
@@ -185,7 +187,7 @@ print(context)
 input_text = "用什么后遗症么？"
 print(f"示例".center(50, "="))
 input_text = context + "\n用户：" + input_text + "\n小元："
-output_text = answer(input_text, top_p=0.9)
+output_text = answer(input_text)
 print(f"{input_text}{output_text}")
 ```
     ========================示例========================  
