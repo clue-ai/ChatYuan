@@ -8,12 +8,12 @@ ChatYuan: 元语功能型对话大模型
 
 <a href='https://www.cluebenchmarks.com/clueai.html'>PromptCLUE-large</a>在1000亿token中文语料上预训练，累计学习1.5万亿中文token，并且在数百种任务上进行Prompt任务式训练。针对理解类任务，如分类、情感分析、抽取等，可以自定义标签体系；针对多种生成任务，可以进行采样自由生成。 
 
-<a href='https://www.clueai.cn/chat'>在线Demo</a> &nbsp; | 
-  <a href='https://modelscope.cn/models/ClueAI/ChatYuan-large/summary'>ModelScope</a> &nbsp; | 
-  <a href='https://huggingface.co/ClueAI/ChatYuan-large-v1'>Huggingface</a> &nbsp; | 
-  <a href='https://www.clueai.cn'>使用API(large版)</a> &nbsp; | 
- &nbsp; <a href='https://github.com/clue-ai/ChatYuan'>Github项目地址</a>&nbsp; |
-  &nbsp;<a href='https://colab.research.google.com/drive/1ZcLIJuemiojigrfjbsDMBWrX7JqXZX6I?usp=sharing#scrollTo=QokO0pdGmAYH'>Colab在线试用</a> 
+<a href='https://www.clueai.cn/chat' target="_blank">在线Demo</a> &nbsp; | 
+  <a href='https://modelscope.cn/models/ClueAI/ChatYuan-large/summary' target="_blank">ModelScope</a> &nbsp; | 
+  <a href='https://huggingface.co/ClueAI/ChatYuan-large-v1' target="_blank">Huggingface</a> &nbsp; | 
+  <a href='https://www.clueai.cn' target="_blank">使用API(large版)</a> &nbsp; | 
+ &nbsp; <a href='https://github.com/clue-ai/ChatYuan' target="_blank">Github项目地址</a>&nbsp; |
+  &nbsp;<a href='https://colab.research.google.com/drive/1ZcLIJuemiojigrfjbsDMBWrX7JqXZX6I?usp=sharing#scrollTo=QokO0pdGmAYH' target="_blank">Colab在线试用</a> 
  
 扫码体验或微信搜索小程序“元语智能”：
 
