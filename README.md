@@ -11,7 +11,8 @@ ChatYuan: 元语功能型对话大模型
 <a href='https://www.clueai.cn/chat' target="_blank">在线Demo</a> &nbsp; | 
   <a href='https://modelscope.cn/models/ClueAI/ChatYuan-large/summary' target="_blank">ModelScope</a> &nbsp; | 
   <a href='https://huggingface.co/ClueAI/ChatYuan-large-v1' target="_blank">Huggingface</a> &nbsp; | 
-  <a href='https://www.clueai.cn' target="_blank">使用API(large版)</a> &nbsp; | 
+  <a href='https://www.clueai.cn' target="_blank">官网体验场</a> &nbsp; | 
+    <a href='https://github.com/clue-ai/clueai-python#ChatYuan%E5%8A%9F%E8%83%BD%E5%AF%B9%E8%AF%9D' target="_blank">ChatYuan-API</a> &nbsp; | 
  &nbsp; <a href='https://github.com/clue-ai/ChatYuan' target="_blank">Github项目地址</a>&nbsp; |
   &nbsp;<a href='https://colab.research.google.com/drive/1ZcLIJuemiojigrfjbsDMBWrX7JqXZX6I?usp=sharing#scrollTo=QokO0pdGmAYH' target="_blank">Colab在线试用</a> 
  
