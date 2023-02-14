@@ -1,6 +1,6 @@
 # ChatYuan: 元语功能型对话大模型
 
-在线体验： www.clueai.cn/chat
+在线体验(升级中，暂停服务）： www.clueai.cn/chat 
 
 <a href="https://colab.research.google.com/drive/1ZcLIJuemiojigrfjbsDMBWrX7JqXZX6I?usp=sharing"><img src="https://colab.research.google.com/assets/colab-badge.svg"></a>
 
