@@ -1,5 +1,12 @@
 # ChatYuan: 元语功能型对话大模型
 
+## 预训练代码   
+[t5](https://github.com/google-research/text-to-text-transfer-transformer). 
+## 微调代码     
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lEyFhEfoc-5Z5xqpEKkZt_iMaojH1MP_?usp=sharing)
+
+## 相关介绍
+
 在线体验(升级中，暂停服务）： www.clueai.cn/chat 
 
 <a href="https://colab.research.google.com/drive/1ZcLIJuemiojigrfjbsDMBWrX7JqXZX6I?usp=sharing"><img src="https://colab.research.google.com/assets/colab-badge.svg"></a>
