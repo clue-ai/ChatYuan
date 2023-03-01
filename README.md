@@ -2,8 +2,10 @@
 
 ## 预训练代码   
 [t5](https://github.com/google-research/text-to-text-transfer-transformer). 
-## 微调代码     
+## 微调代码  
+
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lEyFhEfoc-5Z5xqpEKkZt_iMaojH1MP_?usp=sharing)
+
 paddle相关使用和体验  
 1. https://aistudio.baidu.com/aistudio/projectdetail/5452095  
 2. https://aistudio.baidu.com/aistudio/projectdetail/5427279  
