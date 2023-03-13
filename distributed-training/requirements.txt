@@ -1,0 +1,14 @@
+transformers==4.18.0
+tokenizers==0.12.0
+huggingface_hub
+datasets
+torch
+torchvision
+torchaudio
+tensorflow
+flax
+loguru
+scikit-learn
+sentencepiece==0.1.91
+horovod==0.23.0
+torch_optimizer
