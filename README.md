@@ -5,6 +5,8 @@
 ## 微调代码  
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lEyFhEfoc-5Z5xqpEKkZt_iMaojH1MP_?usp=sharing)
+## 分布式训练
+[分布式](https://github.com/clue-ai/ChatYuan/tree/main/distributed-training)
 
 paddle相关使用和体验  
 1. https://aistudio.baidu.com/aistudio/projectdetail/5452095  
