@@ -1,4 +1,4 @@
-# ChatYuan-lareg-v2: 元语功能型对话大模型v2
+# ChatYuan: Large Language Model for Dialogue in Chinese and English
 
 发布于：2023年3月23日
 
