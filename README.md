@@ -6,30 +6,37 @@
 
 ChatYuan-large-v2是一个支持中英双语的功能型对话语言大模型。ChatYuan-large-v2使用了和 v1版本相同的技术方案，在微调数据、人类反馈强化学习、思维链等方面进行了优化。
 
+ChatYuan large v2 is an open-source large language model for dialogue, supports both Chinese and English languages, and in ChatGPT style.
+
 ChatYuan-large-v2是ChatYuan系列中以轻量化实现高质量效果的模型之一，用户可以在消费级显卡、 PC甚至手机上进行推理（INT4 最低只需 400M ）。
 
 在chatyuan-large-v1的原有功能的基础上，我们给模型进行了如下优化：
 - 增强了基础能力。原有上下文问答、创意性写作能力明显提升。
 - 新增了拒答能力。对于一些危险、有害的问题，学会了拒答处理。
+- 新增了中英双语对话能力。
 - 新增了代码生成功能。对于基础代码生成进行了一定程度优化。
 - 新增了表格生成功能。使生成的表格内容和格式更适配。
 - 增强了基础数学运算能力。
 - 最大长度从1024token数扩展到4096。
 - 增强了模拟情景能力。
-- 新增了中英双语对话能力。
 
+Based on the original functions of Chatyuan-large-v1, we optimized the model as follows:
+-Added the ability to speak in both Chinese and English.
 
-## 预训练代码   
-[text-to-text-transfer-transformer](https://github.com/google-research/text-to-text-transfer-transformer). 
-## 微调代码  
+-Added the ability to refuse to answer. Learn to refuse to answer some dangerous and harmful questions.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lEyFhEfoc-5Z5xqpEKkZt_iMaojH1MP_?usp=sharing)
-## 分布式训练
-[分布式](https://github.com/clue-ai/ChatYuan/tree/main/distributed-training)
+-Added code generation functionality. Basic code generation has been optimized to a certain extent.
 
-paddle相关使用和体验  
-1. https://aistudio.baidu.com/aistudio/projectdetail/5452095  
-2. https://aistudio.baidu.com/aistudio/projectdetail/5427279  
+-Enhanced basic capabilities. The original contextual Q&A and creative writing skills have significantly improved.
+
+-Added a table generation function. Make the generated table content and format more appropriate.
+
+-Enhanced basic mathematical computing capabilities.
+
+-The maximum number of length tokens has been expanded to 4096.
+
+-Enhanced ability to simulate scenarios< br>
+
 
 ## 模型下载与体验地址
 
@@ -120,6 +127,18 @@ for i, input_text in enumerate(input_list):
   output_text = answer(input_text)
   print(f"{input_text}{output_text}")
 ```
+
+## 预训练代码   
+[text-to-text-transfer-transformer](https://github.com/google-research/text-to-text-transfer-transformer). 
+## 微调代码  
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lEyFhEfoc-5Z5xqpEKkZt_iMaojH1MP_?usp=sharing)
+## 分布式训练
+[分布式](https://github.com/clue-ai/ChatYuan/tree/main/distributed-training)
+
+paddle相关使用和体验  
+1. https://aistudio.baidu.com/aistudio/projectdetail/5452095  
+2. https://aistudio.baidu.com/aistudio/projectdetail/5427279  
 
 ## 主要更新
 
