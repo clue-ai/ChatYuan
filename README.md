@@ -125,7 +125,7 @@ def answer(text, sample=True, top_p=1, temperature=0.7):
   if not sample:
     out = model.generate(**encoding, return_dict_in_generate=True, output_scores=False, max_new_tokens=512, num_beams=1, length_penalty=0.6)
   else:
-    out = model.generate(**encoding, return_dict_in_generate=True, output_scores=False, max_new_tokens=512, do_sample=True, top_p=top_p, temperature=temperature, no_repeat_ngram_size=3)
+    out = model.generate(**encoding, return_dict_in_generate=True, output_scores=False, max_new_tokens=512, do_sample=True, top_p=top_p, temperature=temperature, no_repeat_ngram_size=12)
   out_text = tokenizer.batch_decode(out["sequences"], skip_special_tokens=True)
   return postprocess(out_text[0])
 print("end...")
