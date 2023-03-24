@@ -557,11 +557,11 @@ print("预测结果：", y_pred)
  
 
 
-### 技术交流和问题反馈（扫码在线体验小程序，或入讨论群）
+### 技术交流和问题反馈（扫码关注公众号，或加入讨论群）
 <p float="left">
+   <img src="https://github.com/clue-ai/ChatYuan/blob/main/imgs/chatyuan_wechat.jpg"  width="29%" height="29%" />   
    <img src="https://github.com/clue-ai/ChatYuan/blob/main/imgs/chatyuan.png"  width="29%" height="29%" />  
    <img src="https://github.com/clue-ai/ChatYuan/blob/main/imgs/brightmart.jpeg"  width="29%" height="29%" />  
-   <img src="https://github.com/clue-ai/ChatYuan/blob/main/imgs/chatyuan_wechat.jpg"  width="29%" height="29%" />   
 </p>  
 
 ### 可以加入discord交流群 
