@@ -10,6 +10,12 @@ ChatYuan large v2 is an open-source large language model for dialogue, supports 
 
 ChatYuan-large-v2是ChatYuan系列中以轻量化实现高质量效果的模型之一，用户可以在消费级显卡、 PC甚至手机上进行推理（INT4 最低只需 400M ）。
 
+<a href='https://huggingface.co/spaces/ClueAI/ChatYuan-large-v2' target="__blank">在线Demo(Huggingface)</a> &nbsp; | 
+<a href='https://modelscope.cn/studios/ClueAI/ChatYuan-large-v2' target="__blank">在线Demo(ModelScope)</a> &nbsp; | 
+  <a href='https://www.clueai.cn' target="__blank">使用API(large版)</a> &nbsp; | 
+  &nbsp;<a href='https://colab.research.google.com/drive/1ZcLIJuemiojigrfjbsDMBWrX7JqXZX6I?usp=sharing' target="__blank">Colab在线试用</a> &nbsp; |
+  &nbsp;<a href='https://mp.weixin.qq.com/s/FtXAnrhavA5u7hRyfm8j6Q' target="__blank">文章介绍</a> 
+  
 在chatyuan-large-v1的原有功能的基础上，我们给模型进行了如下优化：
 - 增强了基础能力。原有上下文问答、创意性写作能力明显提升。
 - 新增了拒答能力。对于一些危险、有害的问题，学会了拒答处理。
@@ -21,6 +27,7 @@ ChatYuan-large-v2是ChatYuan系列中以轻量化实现高质量效果的模型�
 - 增强了模拟情景能力。
 
 Based on the original functions of Chatyuan-large-v1, we optimized the model as follows:
+
 -Added the ability to speak in both Chinese and English.
 
 -Added the ability to refuse to answer. Learn to refuse to answer some dangerous and harmful questions.
@@ -41,6 +48,7 @@ Based on the original functions of Chatyuan-large-v1, we optimized the model as 
 ## 模型下载与体验地址
 
 https://huggingface.co/ClueAI/ChatYuan-large-v2/
+
 https://modelscope.cn/studios/ClueAI/ChatYuan-large-v2
 
 # 声明
