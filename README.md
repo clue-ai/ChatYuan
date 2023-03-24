@@ -72,6 +72,19 @@ https://modelscope.cn/studios/ClueAI/ChatYuan-large-v2
 
 #### 代码范例
 
+
+- 一键启动gradio网页交互，对话
+
+为确保可以正常运行，提供一种依赖配置
+clueai==0.0.2.2.4
+gradio==3.20.1
+torch==1.7.1
+transformers==4.26.1
+
+直接运行 app_gradio.py即可，打开
+
+- 本地调试
+
 加载模型：
  
  ```python
