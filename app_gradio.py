@@ -8,15 +8,19 @@ model = T5ForConditionalGeneration.from_pretrained("ClueAI/ChatYuan-large-v2")
 # 该加载方式，在最大长度为512时 大约需要6G多显存
 # 如显存不够，可采用以下方式加载，进一步减少显存需求，约为3G，但是请注意您的显卡是否支持此种推理方式
 # model = T5ForConditionalGeneration.from_pretrained("ClueAI/ChatYuan-large-v2").half()
+# 使用
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model.to(device)
 
+base_info = "用户：你是谁？\n小元：我是元语智能公司研发的AI智能助手, 在不违反原则的情况下，我可以回答你的任何问题。\n"
 def preprocess(text):
+  text = f"{base_info}{text}"
   text = text.replace("\n", "\\n").replace("\t", "\\t")
   return text
 
 def postprocess(text):
   return text.replace("\\n", "\n").replace("\\t", "\t").replace('%20','  ')#.replace(" ", "&nbsp;")
+
 
 
 generate_config = {'do_sample': True, 'top_p': 0.9, 'top_k': 50, 'temperature': 0.7, 
@@ -30,7 +34,7 @@ def answer(text, sample=True, top_p=0.9, temperature=0.7):
   if not sample:
       out = model.generate(**encoding, return_dict_in_generate=True, output_scores=False, max_new_tokens=1024, num_beams=1, length_penalty=0.6)
   else:
-      out = model.generate(**encoding, return_dict_in_generate=True, output_scores=False, max_new_tokens=1024, do_sample=True, top_p=top_p, temperature=temperature, no_repeat_ngram_size=6)
+      out = model.generate(**encoding, return_dict_in_generate=True, output_scores=False, max_new_tokens=1024, do_sample=True, top_p=top_p, temperature=temperature, no_repeat_ngram_size=12)
   #out=model.generate(**encoding, **generate_config)
   out_text = tokenizer.batch_decode(out["sequences"], skip_special_tokens=True)
   return postprocess(out_text[0])
@@ -44,12 +48,16 @@ def chatyuan_bot(input, history):
        history = history[-5:]
 
     context = "\n".join([f"用户：{input_text}\n小元：{answer_text}" for input_text, answer_text in history])
-    print(context)
+    #print(context)
 
     input_text = context + "\n用户：" + input + "\n小元："
+    input_text = input_text.strip()
     output_text = answer(input_text)
+    print("open_model".center(20, "="))
+    print(f"{input_text}\n{output_text}")
+    #print("="*20)
     history.append((input, output_text))
-    print(history)
+    #print(history)
     return history, history
 
 block = gr.Blocks()
@@ -80,7 +88,7 @@ def ChatYuan(api_key, text_prompt):
     # 需要返回得分的话，指定return_likelihoods="GENERATION"
     prediction = cl.generate(model_name='ChatYuan-large', prompt=text_prompt)
     # print the predicted text
-    print('prediction: {}'.format(prediction.generations[0].text))
+    #print('prediction: {}'.format(prediction.generations[0].text))
     response = prediction.generations[0].text
     if response == '':
         response = "很抱歉，我无法回答这个问题"
@@ -94,12 +102,16 @@ def chatyuan_bot_api(api_key, input, history):
       history = history[-5:]
 
     context = "\n".join([f"用户：{input_text}\n小元：{answer_text}" for input_text, answer_text in history])
-    print(context)
+    #print(context)
 
     input_text = context + "\n用户：" + input + "\n小元："
+    input_text = input_text.strip()
     output_text = ChatYuan(api_key, input_text)
+    print("api".center(20, "="))
+    print(f"api_key:{api_key}\n{input_text}\n{output_text}")
+    #print("="*20)
     history.append((input, output_text))
-    print(history)
+    #print(history)
     return history, history
 
 block = gr.Blocks()
