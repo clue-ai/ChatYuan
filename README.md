@@ -153,12 +153,11 @@ for i, input_text in enumerate(input_list):
 input_text = ["你好","你是谁？"]
 answer_text = ["您好，有什么可以帮助您的吗？", "我是元语智能公司研发的AI智能助手, 在不违反原则的情况下，我可以回答你的任何问题。"]
 context = "\n".join([f"用户：{input_text[i]}\n小元：{answer_text[i]}" for i in range(len(input_text))])
-print(context)
 
 input_text = "帮我写个请假条，我生病了"
 print(f"示例".center(50, "="))
 output_text = answer(input_text, context = context)
-print(f"{input_text}{output_text}")
+print(f"{context}\n用户：{input_text}\n小元：{output_text}")
 ```
 ## 预训练代码   
 [text-to-text-transfer-transformer](https://github.com/google-research/text-to-text-transfer-transformer). 
