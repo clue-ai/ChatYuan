@@ -120,6 +120,7 @@ def postprocess(text):
 def answer(text, sample=True, top_p=0.9, temperature=0.7):
   '''sample：是否抽样。生成任务，可以设置为True;
   top_p：0-1之间，生成的内容越多样'''
+  input_text = "用户：" + input_text + "\n小元："
   text = preprocess(text)
   encoding = tokenizer(text=[text], truncation=True, padding=True, max_length=1024, return_tensors="pt").to(device) 
   if not sample:
@@ -144,7 +145,6 @@ input_text7 = "根据标题生成文章：标题：屈臣氏里的化妆品到�
 input_text8 = "帮我对比几款GPU，列出详细参数对比，并且给出最终结论"
 input_list = [input_text0, input_text1, input_text2, input_text3, input_text4, input_text5, input_text6, input_text7, input_text8]
 for i, input_text in enumerate(input_list):
-  input_text = "用户：" + input_text + "\n小元："
   print(f"示例{i}".center(50, "="))
   output_text = answer(input_text)
   print(f"{input_text}{output_text}")
