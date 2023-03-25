@@ -117,10 +117,10 @@ def preprocess(text):
 def postprocess(text):
   return text.replace("\\n", "\n").replace("\\t", "\t").replace('%20','  ')
 
-def answer(text, sample=True, top_p=0.9, temperature=0.7):
+def answer(text, sample=True, top_p=0.9, temperature=0.7, context = ""):
   '''sample：是否抽样。生成任务，可以设置为True;
   top_p：0-1之间，生成的内容越多样'''
-  input_text = "用户：" + input_text + "\n小元："
+  input_text = f"{context}用户：{input_text}\n小元："
   text = preprocess(text)
   encoding = tokenizer(text=[text], truncation=True, padding=True, max_length=1024, return_tensors="pt").to(device) 
   if not sample:
