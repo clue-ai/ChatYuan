@@ -131,13 +131,11 @@ def answer(text, sample=True, top_p=0.9, temperature=0.7, context = ""):
   out_text = tokenizer.batch_decode(out["sequences"], skip_special_tokens=True)
   return postprocess(out_text[0])
 ```
-
+### 单轮对话
 ```python
 input_text0 = "翻译这句话成英文：屈臣氏里的化妆品到底怎么样？"
 input_text1 = "帮我写一个英文营销方案，针对iphone"
 input_text2 = "写一个冒泡排序"
-# input_text1 = "你能干什么"
-# input_text2 = "用英文写一封道歉的邮件，表达因为物流延误，不能如期到达，我们可以赔偿贵公司所有损失"
 input_text3 = "写一个文章，题目是未来城市"
 input_text4 = "写一个诗歌，关于冬天"
 input_text5 = "从南京到上海的路线"
@@ -150,7 +148,18 @@ for i, input_text in enumerate(input_list):
   output_text = answer(input_text)
   print(f"{input_text}{output_text}")
 ```
+### 多轮对话
+```python
+input_text = ["你好","你是谁？"]
+answer_text = ["您好，有什么可以帮助您的吗？", "我是元语智能公司研发的AI智能助手, 在不违反原则的情况下，我可以回答你的任何问题。"]
+context = "\n".join([f"用户：{input_text[i]}\n小元：{answer_text[i]}" for i in range(len(input_text))])
+print(context)
 
+input_text = "帮我写个请假条，我生病了"
+print(f"示例".center(50, "="))
+output_text = answer(input_text, context = context)
+print(f"{input_text}{output_text}")
+```
 ## 预训练代码   
 [text-to-text-transfer-transformer](https://github.com/google-research/text-to-text-transfer-transformer). 
 ## 微调代码  
