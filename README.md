@@ -87,6 +87,28 @@ transformers==4.26.1
 
 - 本地调试
 
+### 简洁对话方式
+```python
+from transformers import AutoTokenizer, AutoModel
+import os
+model_dir='ClueAI/ChatYuan-large-v2'
+tokenizer = AutoTokenizer.from_pretrained(model_dir)
+# 速度会受到网络影响，网络不好可以使用下面高级参数配置方式
+model = AutoModel.from_pretrained(model_dir, trust_remote_code=True)
+history = []
+print("starting")
+while True:
+    query = input("\n用户：")
+    if query == "stop":
+        break
+    if query == "clear":
+        history = []
+        os.system('clear')
+        continue
+    response, history = model.chat(tokenizer, query, history=history)
+    print(f"小元：{response}")
+```
+### 高级参数配置方式
 加载模型：
  
  ```python
