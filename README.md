@@ -172,6 +172,16 @@ for i, input_text in enumerate(input_list):
 ```
 ### 多轮对话
 ```python
+history = []
+while True:
+    query = input("\n用户：")
+    context = "\n".join(history[:-5])
+    response = answer(query, context)
+    history.append([f"用户：{query}\n小元：{response}"])
+    print(f"小元：{response}")
+```
+#### 示例
+```python
 input_text = ["你好","你是谁？"]
 answer_text = ["您好，有什么可以帮助您的吗？", "我是元语智能公司研发的AI智能助手, 在不违反原则的情况下，我可以回答你的任何问题。"]
 context = "\n".join([f"用户：{input_text[i]}\n小元：{answer_text[i]}" for i in range(len(input_text))])
