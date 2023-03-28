@@ -175,7 +175,7 @@ for i, input_text in enumerate(input_list):
 history = []
 while True:
     query = input("\n用户：")
-    context = "\n".join(history[:-5])
+    context = "\n".join(history[-5:])
     response = answer(query, context)
     history.append([f"用户：{query}\n小元：{response}"])
     print(f"小元：{response}")
