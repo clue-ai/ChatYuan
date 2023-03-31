@@ -3,62 +3,131 @@ import gradio as gr
 import clueai
 import torch
 from transformers import T5Tokenizer, T5ForConditionalGeneration
+
 tokenizer = T5Tokenizer.from_pretrained("ClueAI/ChatYuan-large-v2")
 model = T5ForConditionalGeneration.from_pretrained("ClueAI/ChatYuan-large-v2")
-# 该加载方式，在最大长度为512时 大约需要6G多显存
-# 如显存不够，可采用以下方式加载，进一步减少显存需求，约为3G，但是请注意您的显卡是否支持此种推理方式
-# model = T5ForConditionalGeneration.from_pretrained("ClueAI/ChatYuan-large-v2").half()
 # 使用
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model.to(device)
+model.half()
 
-base_info = "用户：你是谁？\n小元：我是元语智能公司研发的AI智能助手, 在不违反原则的情况下，我可以回答你的任何问题。\n"
+base_info = ""
+
+
 def preprocess(text):
-  text = f"{base_info}{text}"
-  text = text.replace("\n", "\\n").replace("\t", "\\t")
-  return text
+    text = f"{base_info}{text}"
+    text = text.replace("\n", "\\n").replace("\t", "\\t")
+    return text
+
 
 def postprocess(text):
-  return text.replace("\\n", "\n").replace("\\t", "\t").replace('%20','  ')#.replace(" ", "&nbsp;")
+    return text.replace("\\n", "\n").replace("\\t", "\t").replace(
+        '%20', '  ')  #.replace(" ", "&nbsp;")
 
 
+generate_config = {
+    'do_sample': True,
+    'top_p': 0.9,
+    'top_k': 50,
+    'temperature': 0.7,
+    'num_beams': 1,
+    'max_length': 1024,
+    'min_length': 3,
+    'no_repeat_ngram_size': 5,
+    'length_penalty': 0.6,
+    'return_dict_in_generate': True,
+    'output_scores': True
+}
 
-generate_config = {'do_sample': True, 'top_p': 0.9, 'top_k': 50, 'temperature': 0.7, 
-                   'num_beams': 1, 'max_length': 1024, 'min_length': 3, 'no_repeat_ngram_size': 5, 
-                   'length_penalty': 0.6, 'return_dict_in_generate': True, 'output_scores': True}
-def answer(text, sample=True, top_p=0.9, temperature=0.7):
-  '''sample：是否抽样。生成任务，可以设置为True;
+
+def answer(
+    text,
+    top_p,
+    temperature,
+    sample=True,
+):
+    '''sample：是否抽样。生成任务，可以设置为True;
   top_p：0-1之间，生成的内容越多样'''
-  text = preprocess(text)
-  encoding = tokenizer(text=[text], truncation=True, padding=True, max_length=1024, return_tensors="pt").to(device) 
-  if not sample:
-      out = model.generate(**encoding, return_dict_in_generate=True, output_scores=False, max_new_tokens=1024, num_beams=1, length_penalty=0.6)
-  else:
-      out = model.generate(**encoding, return_dict_in_generate=True, output_scores=False, max_new_tokens=1024, do_sample=True, top_p=top_p, temperature=temperature, no_repeat_ngram_size=12)
-  #out=model.generate(**encoding, **generate_config)
-  out_text = tokenizer.batch_decode(out["sequences"], skip_special_tokens=True)
-  return postprocess(out_text[0])
+    text = preprocess(text)
+    encoding = tokenizer(text=[text],
+                         truncation=True,
+                         padding=True,
+                         max_length=1024,
+                         return_tensors="pt").to(device)
+    if not sample:
+        out = model.generate(**encoding,
+                             return_dict_in_generate=True,
+                             output_scores=False,
+                             max_new_tokens=1024,
+                             num_beams=1,
+                             length_penalty=0.6)
+    else:
+        out = model.generate(**encoding,
+                             return_dict_in_generate=True,
+                             output_scores=False,
+                             max_new_tokens=1024,
+                             do_sample=True,
+                             top_p=top_p,
+                             temperature=temperature,
+                             no_repeat_ngram_size=12)
+    #out=model.generate(**encoding, **generate_config)
+    out_text = tokenizer.batch_decode(out["sequences"],
+                                      skip_special_tokens=True)
+    return postprocess(out_text[0])
+
 
 def clear_session():
     return '', None
 
-def chatyuan_bot(input, history):
-    history = history or []
-    if len(history) > 5:
-       history = history[-5:]
 
-    context = "\n".join([f"用户：{input_text}\n小元：{answer_text}" for input_text, answer_text in history])
+def chatyuan_bot(input, history, top_p, temperature, num):
+    history = history or []
+    if len(history) > num:
+        history = history[-num:]
+
+    context = "\n".join([
+        f"用户：{input_text}\n小元：{answer_text}"
+        for input_text, answer_text in history
+    ])
     #print(context)
 
     input_text = context + "\n用户：" + input + "\n小元："
     input_text = input_text.strip()
-    output_text = answer(input_text)
+    output_text = answer(input_text, top_p, temperature)
     print("open_model".center(20, "="))
     print(f"{input_text}\n{output_text}")
     #print("="*20)
     history.append((input, output_text))
     #print(history)
-    return history, history
+    return '', history, history
+
+
+def chatyuan_bot_regenerate(input, history, top_p, temperature, num):
+
+    history = history or []
+
+    if history:
+        input = history[-1][0]
+        history = history[:-1]
+
+    if len(history) > num:
+        history = history[-num:]
+
+    context = "\n".join([
+        f"用户：{input_text}\n小元：{answer_text}"
+        for input_text, answer_text in history
+    ])
+    #print(context)
+
+    input_text = context + "\n用户：" + input + "\n小元："
+    input_text = input_text.strip()
+    output_text = answer(input_text, top_p, temperature)
+    print("open_model".center(20, "="))
+    print(f"{input_text}\n{output_text}")
+    history.append((input, output_text))
+    #print(history)
+    return '', history, history
+
 
 block = gr.Blocks()
 
@@ -67,24 +136,58 @@ with block as demo:
         <font size=4>回答来自ChatYuan, 是模型生成的结果, 请谨慎辨别和参考, 不代表任何人观点 | Answer generated by ChatYuan model</font>
         <font size=4>注意：gradio对markdown代码格式展示有限</font>
     """)
-    chatbot = gr.Chatbot(label='ChatYuan')
+    with gr.Row():
+        with gr.Column(scale=3):
+            chatbot = gr.Chatbot(label='ChatYuan').style(height=400)
+
+        with gr.Column(scale=1):
+
+            num = gr.Slider(minimum=4,
+                            maximum=10,
+                            label="最大的对话轮数",
+                            value=5,
+                            step=1)
+            top_p = gr.Slider(minimum=0,
+                              maximum=1,
+                              label="top_p",
+                              value=1,
+                              step=0.1)
+            temperature = gr.Slider(minimum=0,
+                                    maximum=1,
+                                    label="temperature",
+                                    value=0.7,
+                                    step=0.1)
+            clear_history = gr.Button("👋 清除历史对话 | Clear History")
+            send = gr.Button("🚀 发送 | Send")
+            regenerate = gr.Button("🚀 重新生成本次结果 | regenerate")
     message = gr.Textbox()
     state = gr.State()
-    message.submit(chatyuan_bot, inputs=[message, state], outputs=[chatbot, state])
-    with gr.Row():
-      clear_history = gr.Button("👋 清除历史对话 | Clear")
-      clear = gr.Button('🧹 清除发送框 | Clear Input')
-      send = gr.Button("🚀 发送 | Send")
-      
-    send.click(chatyuan_bot, inputs=[message, state], outputs=[chatbot, state])
-    clear.click(lambda: None, None, message, queue=False)
-    clear_history.click(fn=clear_session , inputs=[], outputs=[chatbot, state], queue=False)
-    
+    message.submit(chatyuan_bot,
+                   inputs=[message, state, top_p, temperature, num],
+                   outputs=[message, chatbot, state])
+    regenerate.click(chatyuan_bot_regenerate,
+                     inputs=[message, state, top_p, temperature, num],
+                     outputs=[message, chatbot, state])
+    send.click(chatyuan_bot,
+               inputs=[message, state, top_p, temperature, num],
+               outputs=[message, chatbot, state])
 
-def ChatYuan(api_key, text_prompt):
+    clear_history.click(fn=clear_session,
+                        inputs=[],
+                        outputs=[chatbot, state],
+                        queue=False)
 
-    cl = clueai.Client(api_key,
-                        check_api_key=True)
+
+def ChatYuan(api_key, text_prompt, top_p):
+    generate_config = {
+        "do_sample": True,
+        "top_p": top_p,
+        "max_length": 128,
+        "min_length": 10,
+        "length_penalty": 1.0,
+        "num_beams": 1
+    }
+    cl = clueai.Client(api_key, check_api_key=True)
     # generate a prediction for a prompt
     # 需要返回得分的话，指定return_likelihoods="GENERATION"
     prediction = cl.generate(model_name='ChatYuan-large', prompt=text_prompt)
@@ -95,25 +198,29 @@ def ChatYuan(api_key, text_prompt):
         response = "很抱歉，我无法回答这个问题"
 
     return response
-  
-def chatyuan_bot_api(api_key, input, history):
+
+
+def chatyuan_bot_api(api_key, input, history, top_p, num):
     history = history or []
 
-    if len(history) > 5:
-      history = history[-5:]
+    if len(history) > num:
+        history = history[-num:]
 
-    context = "\n".join([f"用户：{input_text}\n小元：{answer_text}" for input_text, answer_text in history])
-    #print(context)
+    context = "\n".join([
+        f"用户：{input_text}\n小元：{answer_text}"
+        for input_text, answer_text in history
+    ])
 
     input_text = context + "\n用户：" + input + "\n小元："
     input_text = input_text.strip()
-    output_text = ChatYuan(api_key, input_text)
+    output_text = ChatYuan(api_key, input_text, top_p)
     print("api".center(20, "="))
     print(f"api_key:{api_key}\n{input_text}\n{output_text}")
-    #print("="*20)
+
     history.append((input, output_text))
-    #print(history)
-    return history, history
+
+    return '', history, history
+
 
 block = gr.Blocks()
 
@@ -123,19 +230,40 @@ with block as demo_1:
     <font size=4>注意：gradio对markdown代码格式展示有限</font>
     <font size=4>在使用此功能前，你需要有个API key. API key 可以通过这个<a href='https://www.clueai.cn/' target="_blank">平台</a>获取</font>
     """)
-    api_key = gr.inputs.Textbox(label="请输入你的api-key(必填)", default="", type='password')
-    chatbot = gr.Chatbot(label='ChatYuan')
+    with gr.Row():
+        with gr.Column(scale=3):
+            chatbot = gr.Chatbot(label='ChatYuan').style(height=400)
+
+        with gr.Column(scale=1):
+            api_key = gr.inputs.Textbox(label="请输入你的api-key(必填)",
+                                        default="",
+                                        type='password')
+            num = gr.Slider(minimum=4,
+                            maximum=10,
+                            label="最大的对话轮数",
+                            value=5,
+                            step=1)
+            top_p = gr.Slider(minimum=0,
+                              maximum=1,
+                              label="top_p",
+                              value=1,
+                              step=0.1)
+            clear_history = gr.Button("👋 清除历史对话 | Clear History")
+            send = gr.Button("🚀 发送 | Send")
+
     message = gr.Textbox()
     state = gr.State()
-    message.submit(chatyuan_bot_api, inputs=[api_key,message, state], outputs=[chatbot, state])
-    with gr.Row():
-      clear_history = gr.Button("👋 清除历史对话 | Clear Context")
-      clear = gr.Button('🧹 清除发送框 | Clear Input')
-      send = gr.Button("🚀 发送 | Send")
+    message.submit(chatyuan_bot_api,
+                   inputs=[api_key, message, state, top_p, num],
+                   outputs=[message, chatbot, state])
 
-    send.click(chatyuan_bot_api, inputs=[api_key,message, state], outputs=[chatbot, state])
-    clear.click(lambda: None, None, message, queue=False)
-    clear_history.click(fn=clear_session , inputs=[], outputs=[chatbot, state], queue=False)
+    send.click(chatyuan_bot_api,
+               inputs=[api_key, message, state, top_p, num],
+               outputs=[message, chatbot, state])
+    clear_history.click(fn=clear_session,
+                        inputs=[],
+                        outputs=[chatbot, state],
+                        queue=False)
 
 block = gr.Blocks()
 with block as introduction:
@@ -176,6 +304,7 @@ Based on the original functions of Chatyuan-large-v1, we optimized the model as 
 <center><a href="https://clustrmaps.com/site/1bts0"  title="Visit tracker"><img src="//www.clustrmaps.com/map_v2.png?d=ycVCe17noTYFDs30w7AmkFaE-TwabMBukDP1802_Lts&cl=ffffff" /></a></center>
     """)
 
-
-gui = gr.TabbedInterface(interface_list=[introduction,demo, demo_1], tab_names=["相关介绍","开源模型", "API调用"])
-gui.launch(quiet=True,show_api=False, share = False)
+gui = gr.TabbedInterface(
+    interface_list=[introduction, demo, demo_1],
+    tab_names=["相关介绍 | Introduction", "开源模型 | Online Demo", "API调用"])
+gui.launch(quiet=True, show_api=False, share=True)
