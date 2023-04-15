@@ -3,13 +3,23 @@ import gradio as gr
 import clueai
 import torch
 from transformers import T5Tokenizer, T5ForConditionalGeneration
+import argparse
+
+params = argparse.ArgumentParser()
+params.add_argument('-float', help="使用 float，当显卡不支持 half 时可以使用，但显存占用量会增加", action="store_true")
+params = params.parse_args()
 
 tokenizer = T5Tokenizer.from_pretrained("ClueAI/ChatYuan-large-v2")
 model = T5ForConditionalGeneration.from_pretrained("ClueAI/ChatYuan-large-v2")
+
 # 使用
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model.to(device)
-model.half()
+
+# 当硬件不支持 half 时使用 float
+# When hardware does not support the half-precision data type Half, you can use the single-precision data type Float
+if not params.float:
+    model.half()
 
 base_info = ""
 
