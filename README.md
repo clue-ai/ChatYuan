@@ -11,11 +11,12 @@ ChatYuan large v2 is an open-source large language model for dialogue, supports 
 ChatYuan-large-v2是ChatYuan系列中以轻量化实现高质量效果的模型之一，用户可以在消费级显卡、 PC甚至手机上进行推理（INT4 最低只需 400M ）。
 
 <a href='https://huggingface.co/spaces/ClueAI/ChatYuan-large-v2' target="__blank">在线Demo(Huggingface)</a> &nbsp; | 
-<a href='https://modelscope.cn/studios/ClueAI/ChatYuan-large-v2' target="__blank">在线Demo(ModelScope)</a> &nbsp; | 
-  <a href='https://www.clueai.cn' target="__blank">使用API(large版)</a> &nbsp; | 
-  &nbsp;<a href='https://colab.research.google.com/drive/1ZcLIJuemiojigrfjbsDMBWrX7JqXZX6I?usp=sharing' target="__blank">Colab在线试用</a> &nbsp; |
-  &nbsp;<a href='https://mp.weixin.qq.com/s/FtXAnrhavA5u7hRyfm8j6Q' target="__blank">文章介绍</a> 
-  
+&nbsp;<a href='https://modelscope.cn/studios/ClueAI/ChatYuan-large-v2' target="__blank">在线Demo(ModelScope)</a> &nbsp; | 
+&nbsp;<a href='https://aistudio.baidu.com/aistudio/projectdetail/6148351' target="__blank">在线Demo(AIStudio)</a> &nbsp; | 
+&nbsp;<a href='https://www.clueai.cn' target="__blank">使用API(large版)</a> &nbsp; | 
+&nbsp;<a href='https://colab.research.google.com/drive/1ZcLIJuemiojigrfjbsDMBWrX7JqXZX6I?usp=sharing' target="__blank">Colab在线试用</a> &nbsp; |
+&nbsp;<a href='https://mp.weixin.qq.com/s/FtXAnrhavA5u7hRyfm8j6Q' target="__blank">文章介绍</a> 
+
 在chatyuan-large-v1的原有功能的基础上，我们给模型进行了如下优化：
 - 增强了基础能力。原有上下文问答、创意性写作能力明显提升。
 - 新增了拒答能力。对于一些危险、有害的问题，学会了拒答处理。
@@ -66,10 +67,6 @@ https://modelscope.cn/studios/ClueAI/ChatYuan-large-v2
   &nbsp;<a href='https://mp.weixin.qq.com/s/-axa6XcjGl_Koeq_OrDq8w' target="__blank">文章介绍</a> 
 
 
-
-
-
-
 #### 代码范例
 
 
@@ -118,8 +115,6 @@ model = T5ForConditionalGeneration.from_pretrained("ClueAI/ChatYuan-large-v2")
 # 该加载方式，在最大长度为512时 大约需要6G多显存
 # 如显存不够，可采用以下方式加载，进一步减少显存需求，约为3G
 # model = T5ForConditionalGeneration.from_pretrained("ClueAI/ChatYuan-large-v2").half()
-
-
 
  ```
 
@@ -203,7 +198,6 @@ paddle相关使用和体验
 2. https://aistudio.baidu.com/aistudio/projectdetail/5427279  
 
 ## 主要更新
-
 
 ### 增强了原有问答、生成与创意性写作功能
 > 通过以下样例的对比，您可以感受到chatyuan-large-v2在上个版本上的升级和迭代
@@ -593,11 +587,6 @@ print("预测结果：", y_pred)
 
 ``` 
     
-
-
- 
-
-
 ### 技术交流和问题反馈（扫码关注公众号，或加入讨论群）
 <p float="left">
     
