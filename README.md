@@ -598,7 +598,7 @@ print("预测结果：", y_pred)
 如果你觉得ChatYuan对你有帮助，请用以下引用 BibTeX:
 ```
 @software{clueai2023chatyuan,
-  author = {Xuanwei Zhang and Liang Xu},
+  author = {Xuanwei Zhang, Liang Xu and Kangkang Zhao},
   title = {ChatYuan: A Large Language Model for Dialogue in Chinese and English},
   month = Dec,
   year = 2022,
